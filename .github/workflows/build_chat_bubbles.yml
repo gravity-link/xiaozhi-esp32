@@ -1,5 +1,5 @@
     name: Build Chat Bubbles Style Firmware
-    
+
     on:
       workflow_dispatch:
       push:
@@ -20,12 +20,12 @@
             shell: bash
             run: |
               . /opt/esp/idf/export.sh
-              python scripts/build.py bread-compact-wifi-lcd
+              python scripts/build.py bread-compact-wifi-lcd --language zh-CN
 
           - name: Upload Artifact
             uses: actions/upload-artifact@v4
             with:
               name: wechat-style-firmware
               path: |
-                build/bread-compact-wifi-lcd/xiaozhi.bin
-                build/bread-compact-wifi-lcd/merged-binary.bin
+                build/xiaozhi.bin
+                build/merged-binary.bin
