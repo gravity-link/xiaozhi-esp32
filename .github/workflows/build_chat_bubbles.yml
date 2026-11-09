@@ -1,0 +1,31 @@
+    name: Build Chat Bubbles Style Firmware
+    
+    on:
+      workflow_dispatch:
+      push:
+        branches: [ main ]
+
+    jobs:
+      build:
+        runs-on: ubuntu-latest
+        container:
+          image: espressif/idf:release-v6.1
+        steps:
+          - name: Checkout
+            uses: actions/checkout@v4
+            with:
+              submodules: recursive
+
+          - name: Build Firmware
+            shell: bash
+            run: |
+              . /opt/esp/idf/export.sh
+              python scripts/build.py bread-compact-wifi-lcd
+
+          - name: Upload Artifact
+            uses: actions/upload-artifact@v4
+            with:
+              name: wechat-style-firmware
+              path: |
+                build/bread-compact-wifi-lcd/xiaozhi.bin
+                build/bread-compact-wifi-lcd/merged-binary.bin
